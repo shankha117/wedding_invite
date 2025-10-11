@@ -1,0 +1,173 @@
+# Jekyll Configuration for Bengali Wedding Invitation
+# GitHub Pages Configuration
+
+# Site settings
+title: "Shankha & Jayasree - Bengali Wedding Invitation"
+description: "A beautiful Bengali wedding invitation for Shankha & Jayasree's celebration in Siliguri"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+author: "Shankha & Jayasree"
+email: "contact@example.com"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-compress-images
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - package.json
+  - package-lock.json
+  - webpack.config.js
+  - gulpfile.js
+  - .gitignore
+  - .sass-cache
+  - .jekyll-cache
+  - .DS_Store
+  - Thumbs.db
+
+# Include files
+include:
+  - _headers
+  - _redirects
+  - .htaccess
+  - manifest.json
+  - sw.js
+  - offline.html
+
+# Collections
+collections:
+  gallery:
+    output: false
+  events:
+    output: false
+
+# Sass settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Compression settings
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+  ignore:
+    envs: [development]
+  blanklines: false
+  profile: false
+  startings: []
+
+# SEO settings
+lang: en_US
+locale: en_US
+timezone: Asia/Kolkata
+
+# Social media
+twitter:
+  username:
+  card: summary_large_image
+
+facebook:
+  app_id:
+  publisher:
+  admins:
+
+# Google Analytics (optional)
+google_analytics:
+
+# Webmaster verifications
+google_site_verification:
+bing_site_verification:
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      image: "/assets/images/wedding-og-image.jpg"
+
+# PWA settings
+pwa:
+  enabled: true
+  sw_src_filepath: sw.js
+  sw_dest_filename: sw.js
+  dest_js_directory: assets/js
+  precache_recent_posts_num: 5
+  precache_glob_directory: /
+  precache_glob_patterns:
+    - "*.{js,css,html}"
+    - "assets/**/*.{js,css,html,png,jpg,jpeg,gif,svg,webp}"
+
+# Image optimization
+picture:
+  source: "assets/images"
+  output: "assets/images/generated"
+  markup: "picture"
+  presets:
+    default:
+      attr:
+        class: "img-responsive"
+        itemprop: "image"
+      ppi: [1, 1.5, 2]
+      source_lrg:
+        media: "(min-width: 40em)"
+        width: "800"
+      source_med:
+        media: "(min-width: 30em)"
+        width: "600"
+      source_default:
+        width: "400"
+
+# Bengali language support
+languages: ["en", "bn"]
+default_lang: "en"
+exclude_from_localization: ["javascript", "images", "css", "public"]
+parallel_localization: true
+
+# Custom variables for Bengali wedding
+wedding:
+  groom_name: "Shankha"
+  bride_name: "Jayasree"
+  wedding_date: "2025-12-15"
+  wedding_time: "08:00"
+  venue: "Siliguri, West Bengal"
+
+  # Bengali translations
+  bengali:
+    invitation: "আমাদের বিবাহের আমন্ত্রণ"
+    groom_name: "শঙ্খ"
+    bride_name: "জয়শ্রী"
+    time_until: "সেই দিন পর্যন্ত"
+    your_presence: "আপনার উপস্থিতি আমাদের আনন্দ দ্বিগুণ করবে"
+
+  # Social media
+  social:
+    facebook: ""
+    instagram: ""
+    whatsapp: ""
+
+  # RSVP settings
+  rsvp:
+    enabled: true
+    deadline: "2025-12-10"
+    email: "rsvp@example.com"
+
+# GitHub Pages specific settings
+github: [metadata]
+safe: true
+incremental: false
