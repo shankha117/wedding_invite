@@ -245,6 +245,83 @@
                 z-index: -1;
             }
 
+            /* Modern Splash Screen */
+            .splash-screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                z-index: 10000;
+                transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .splash-screen.hidden {
+                opacity: 0;
+                visibility: hidden;
+                transform: scale(1.1);
+            }
+
+            .splash-background-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('./assets/bg.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            /* Mobile Background */
+            @media (max-width: 768px) {
+                .splash-background-image {
+                    background-image: url('./assets/bg_1_mobile.png');
+                }
+            }
+
+            /* Wedding Content */
+            .wedding-content {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 1s ease;
+            }
+
+            .wedding-content.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Mobile Responsiveness */
+            @media (max-width: 768px) {
+                .splash-content {
+                    padding: 20px;
+                }
+
+                .splash-ornament {
+                    width: 80px;
+                    height: 80px;
+                    margin-bottom: 30px;
+                }
+
+                .splash-title {
+                    gap: 10px;
+                }
+
+                .modern-enter-btn {
+                    padding: 15px 35px;
+                    font-size: 1rem;
+                }
+
+                .decoration {
+                    width: 2px;
+                    height: 2px;
+                }
+            }
+
             /* Smooth Scroll Indicator */
             .scroll-progress {
                 position: fixed;
@@ -568,8 +645,69 @@
                 font-size: clamp(1.2rem, 3vw, 1.8rem);
                 color: var(--wooden);
                 margin-bottom: 30px;
-                opacity: 0;
-                animation: fadeInUp 1s ease 0.8s forwards, textLoop 4s ease-in-out 1s infinite;
+                /* Removed conflicting animations to allow typewriter effect */
+            }
+
+            /* Special typewriter animation for Bengali invitation text after splash screen */
+            .bengali-invitation-text {
+                opacity: 0 !important;
+                transform: translateY(30px);
+                transition: opacity 1s ease, transform 1s ease;
+                position: relative;
+                font-family: "Cormorant Garamond", serif;
+                font-size: clamp(1.2rem, 3vw, 1.8rem);
+                color: var(--wooden);
+                margin-bottom: 30px;
+                font-style: italic;
+                /* Override any inherited animations */
+                animation: none !important;
+            }
+
+            .bengali-invitation-text.animate-after-splash {
+                opacity: 1 !important;
+                transform: translateY(0);
+            }
+
+            .typewriter-text {
+                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                border-right: 3px solid var(--wooden);
+                animation: blinkCursor 1s infinite;
+                min-height: 1.2em;
+                width: 0; /* Start with 0 width */
+            }
+
+            .typewriter-text.typing {
+                animation: blinkCursor 1s infinite;
+                width: auto; /* Allow natural width during typing */
+            }
+
+            .typewriter-text.typing-complete {
+                border-right: none;
+                animation: bengaliTextGlow 3s ease-in-out 1s infinite;
+                width: auto;
+            }
+
+            @keyframes blinkCursor {
+                0%, 50% {
+                    border-color: var(--wooden);
+                }
+                51%, 100% {
+                    border-color: transparent;
+                }
+            }
+
+            @keyframes bengaliTextGlow {
+                0%, 100% {
+                    text-shadow: 0 0 5px rgba(181, 149, 106, 0.3);
+                    transform: scale(1);
+                }
+                50% {
+                    text-shadow: 0 0 15px rgba(181, 149, 106, 0.6), 
+                                 0 0 25px rgba(181, 149, 106, 0.4);
+                    transform: scale(1.02);
+                }
             }
 
             @keyframes textLoop {
@@ -932,8 +1070,8 @@
                 position: absolute;
                 top: 15px;
                 right: 15px;
-                background: rgba(244, 240, 232, 0.9);
-                border: 1px solid rgba(196, 165, 116, 0.3);
+                background: rgba(241, 222, 186, 0.9);
+                border: 1px solid rgba(222, 158, 55, 0.3);
                 cursor: pointer;
                 padding: 8px;
                 transition: all 0.3s ease;
@@ -944,14 +1082,13 @@
             .location-btn:hover {
                 opacity: 1;
                 transform: scale(1.1);
-                background: rgba(244, 240, 232, 1);
+                background: rgb(240, 216, 169);
                 border-color: #c4a574;
             }
 
             .location-icon {
                 width: 20px;
                 height: 20px;
-                filter: sepia(1) hue-rotate(25deg) saturate(0.8);
             }
 
             /* Mobile Timeline Responsiveness */
@@ -1289,14 +1426,208 @@
                 opacity: 0.7;
                 margin-top: 40px;
             }
+
+            /* Travel Information Section */
+            .travel-section {
+                background: linear-gradient(
+                    180deg,
+                    var(--beige) 0%,
+                    var(--cream) 100%
+                );
+                position: relative;
+                overflow: hidden;
+            }
+
+            .travel-container {
+                max-width: 900px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .travel-message {
+                font-family: "Spectral", serif;
+                font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+                color: var(--wooden);
+                margin-bottom: 50px;
+                font-style: italic;
+                line-height: 1.6;
+            }
+
+            .travel-options {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 40px;
+                margin-bottom: 50px;
+            }
+
+            .travel-option {
+                background: linear-gradient(135deg, #f4f0e8 0%, #ede5d3 100%);
+                padding: 40px 30px;
+                border-radius: 25px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+                transition: all 0.4s ease;
+                border: 1px solid rgba(196, 165, 116, 0.08);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .travel-option::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, var(--wooden), var(--light-green));
+                transition: all 0.3s ease;
+            }
+
+            .travel-option:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            }
+
+            .travel-icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 25px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, var(--wooden), var(--light-green));
+                color: white;
+                font-size: 2rem;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .travel-option h3 {
+                font-family: "Cormorant Garamond", serif;
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+                color: var(--dark-wood);
+                font-weight: 500;
+                font-style: italic;
+            }
+
+            .travel-details {
+                text-align: center;
+            }
+
+            .destination-name {
+                font-family: "Spectral", serif;
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: var(--dark-wood);
+                margin-bottom: 8px;
+            }
+
+            .destination-code {
+                font-family: "Spectral", serif;
+                font-size: 1rem;
+                color: var(--wooden);
+                font-weight: 500;
+                margin-bottom: 15px;
+                font-style: italic;
+            }
+
+            .travel-info {
+                font-family: "Spectral", serif;
+                font-size: 0.95rem;
+                color: var(--wooden);
+                line-height: 1.5;
+                opacity: 0.9;
+            }
+
+            .assistance-message {
+                background: rgba(196, 165, 116, 0.1);
+                padding: 30px;
+                border-radius: 20px;
+                border-left: 4px solid var(--wooden);
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .assistance-text {
+                font-family: "Cormorant Garamond", serif;
+                font-size: clamp(1.2rem, 3vw, 1.5rem);
+                margin-bottom: 15px;
+                line-height: 1.6;
+            }
+
+            .assistance-highlight {
+                color: var(--dark-wood);
+                font-weight: 500;
+                font-style: italic;
+            }
+
+            .assistance-note {
+                font-family: "Spectral", serif;
+                font-size: 1rem;
+                color: var(--wooden);
+                font-style: italic;
+                opacity: 0.8;
+            }
+
+            /* Mobile Responsiveness for Travel Section */
+            @media (max-width: 768px) {
+                .travel-options {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+
+                .travel-option {
+                    padding: 30px 25px;
+                    border-radius: 20px;
+                }
+
+                .travel-icon {
+                    width: 70px;
+                    height: 70px;
+                    font-size: 1.8rem;
+                    margin-bottom: 20px;
+                }
+
+                .travel-option h3 {
+                    font-size: 1.6rem;
+                }
+
+                .assistance-message {
+                    padding: 25px 20px;
+                    border-radius: 15px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .travel-option {
+                    padding: 25px 20px;
+                }
+
+                .travel-icon {
+                    width: 60px;
+                    height: 60px;
+                    font-size: 1.6rem;
+                }
+
+                .assistance-message {
+                    padding: 20px 15px;
+                }
+            }
         </style>
     </head>
     <body>
-        <!-- Scroll Progress Bar -->
-        <div class="scroll-progress"></div>
+        <!-- Modern Splash Screen -->
+        <div class="splash-screen" id="splashScreen">
+            <div class="splash-background-image"></div>
+        </div>
 
-        <!-- Hero Section -->
-        <section class="hero" id="home">
+        <!-- Main Wedding Content -->
+        <div class="wedding-content" id="weddingContent">
+            <!-- Scroll Progress Bar -->
+            <div class="scroll-progress"></div>
+
+            <!-- Hero Section -->
+            <section class="hero" id="home">
             <div class="abstract-bg">
                 <div class="shape shape-1"></div>
                 <div class="shape shape-2"></div>
@@ -1325,7 +1656,9 @@
                     </h1>
                 </div>
 
-                <p class="hero-subtitle">আমাদের বিবাহের আমন্ত্রণ</p>
+                <p class="hero-subtitle bengali-invitation-text">
+                    <span class="typewriter-text" id="typewriterText"></span>
+                </p>
                 <p class="hero-date">DECEMBER 15, 2025</p>
                 <p class="hero-location">Siliguri, West Bengal</p>
             </div>
@@ -1444,6 +1777,44 @@
             </div>
         </section>
 
+        <!-- Travel Information Section -->
+        <section class="section travel-section" id="travel">
+            <h2 class="section-title reveal alpona-border">How to Reach</h2>
+            <div class="travel-container reveal">
+                <div class="travel-content">                   
+                    <div class="travel-options">
+                        <div class="travel-option">
+                            <div class="travel-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h3>By Air</h3>
+                            <div class="travel-details">
+                                <p class="destination-name">Bagdogra Airport</p>
+                                <p class="destination-code">Code: IXB</p>
+                            </div>
+                        </div>
+
+                        <div class="travel-option">
+                            <div class="travel-icon">
+                                <i class="fas fa-train"></i>
+                            </div>
+                            <h3>By Train</h3>
+                            <div class="travel-details">
+                                <p class="destination-name">New Jalpaiguri Railway Station</p>
+                                <p class="destination-code">Code: NJP</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="assistance-message">
+                        <p class="assistance-text">
+                            <span class="assistance-highlight">Reach till here, then we will take care of the rest!</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Invitation Section -->
         <section class="invitation-section reveal">
             <div class="invitation-ornament">
@@ -1464,7 +1835,7 @@
             <p class="invitation-copyright">© 2025 Shankha & Jayasree. Made with ❤️</p>
         </section>
 
-
+        </div> <!-- End of wedding-content -->
 
         <!-- External JavaScript -->
         <script src="./script.js" defer></script>
@@ -1474,6 +1845,87 @@
             function openLocation(url) {
                 window.open(url, '_blank');
             }
+
+            // Typewriter effect for Bengali text
+            function typewriterEffect(element, text, speed = 150) {
+                return new Promise((resolve) => {
+                    element.classList.add('typing');
+                    element.textContent = '';
+                    let i = 0;
+                    const timer = setInterval(() => {
+                        if (i < text.length) {
+                            element.textContent += text.charAt(i);
+                            i++;
+                        } else {
+                            clearInterval(timer);
+                            element.classList.remove('typing');
+                            // Remove cursor after typing is complete
+                            setTimeout(() => {
+                                element.classList.add('typing-complete');
+                                resolve();
+                            }, 1000);
+                        }
+                    }, speed);
+                });
+            }
+
+            // Auto splash screen transition with Bengali typewriter animation
+            function enterWedding() {
+                console.log('Entering wedding invitation...');
+                
+                const splashScreen = document.getElementById('splashScreen');
+                const weddingContent = document.getElementById('weddingContent');
+                const bengaliText = document.querySelector('.bengali-invitation-text');
+                const typewriterText = document.getElementById('typewriterText');
+                
+                if (splashScreen && weddingContent) {
+                    // Hide splash screen with modern animation
+                    splashScreen.classList.add('hidden');
+                    
+                    // Show wedding content after animation
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                        weddingContent.classList.add('visible');
+                        
+                        // Trigger Bengali text animation after splash transition
+                        setTimeout(() => {
+                            if (bengaliText && typewriterText) {
+                                bengaliText.classList.add('animate-after-splash');
+                                
+                                // Start typewriter effect after a short delay
+                                setTimeout(() => {
+                                    typewriterEffect(typewriterText, 'আমাদের বিবাহের আমন্ত্রণ',10)
+                                        .then(() => {
+                                            console.log('Bengali typewriter animation completed');
+                                        });
+                                }, 800);
+                                
+                                console.log('Bengali invitation animation started');
+                            }
+                        }, 10); // Start Bengali animation 0.5s after main content appears
+                        
+                        // Smooth scroll to top
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }, 1200);
+                }
+            }
+
+            // Initialize on DOM load
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('Wedding invitation loaded');
+                
+                // Auto-enter after 3 seconds to show the background image
+                setTimeout(() => {
+                    console.log('Auto-entering wedding invitation...');
+                    enterWedding();
+                }, 3000);
+            });
+
+            // Make function globally available
+            window.enterWedding = enterWedding;
         </script>
 
         <!-- Performance optimization -->
